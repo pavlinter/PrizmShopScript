@@ -46,4 +46,6 @@ CREATE TABLE IF NOT EXISTS `pzm_order` (
 ![Screen Shot](https://github.com/pavlinter/PrizmShopScript/blob/master/assets/images/PrizmAPIServlet.properties.jpg?raw=true)
 
 5) Set Cron Job
+```bash
 wget "https://domain.com/cron.php" 2>&1
+```
