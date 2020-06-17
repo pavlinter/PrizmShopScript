@@ -39,6 +39,34 @@ function getLastPzmHistory()
 }
 
 /**
+ * @return int
+ */
+function getSuccessOrders()
+{
+    global $db;
+
+    $stmt = $db->prepare('SELECT * FROM pzm_order WHERE status=' . ORDER_STATUS_SUCCESS);
+    $stmt->execute();
+    $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    return $rows;
+}
+
+function getTransaction($hash)
+{
+    global $db;
+
+    $stmt = $db->prepare('SELECT * FROM pzm_history WHERE comment=? LIMIT 1');
+    $stmt->bindParam(1, $hash, PDO::PARAM_STR);
+    $stmt->execute();
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    if (!$row) {
+        return [];
+    }
+    return $row;
+}
+
+/**
  * @param $json
  * @param bool $asArray
  * @return mixed|null
@@ -92,3 +120,37 @@ function post($key, $default = null)
     }
     return $default;
 }
+
+/**
+ * @param bool $key
+ * @return array|mixed|null
+ */
+function items_list($key = false)
+{
+    $list = [
+        '1' => [
+            'name' => 'Pen',
+            'price' => 1,
+        ],
+        '2' => [
+            'name' => 'Pencil',
+            'price' => 2,
+        ],
+        '3' => [
+            'name' => 'Notebook',
+            'price' => 3,
+        ],
+    ];
+
+    if ($key === false) {
+        return $list;
+    }
+
+    if (isset($list[$key])) {
+        return $list[$key];
+    }
+
+    return null;
+}
+
+

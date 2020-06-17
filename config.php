@@ -6,8 +6,8 @@ define("DB_SERVERNAME", "localhost");
 define("DB_NAME", "");
 define("DB_USERNAME", "");
 define("DB_PASSWORD", "");
-define("RANDOM_SALT", "");
-define("PRIZM_ADDRESS", "PRIZM-");
+define("RANDOM_SALT", ""); //547894tgfslho
+define("PRIZM_ADDRESS", "PRIZM-AAAA-AAAA-AAAA-AAAAA");
 define("PRIZM_PUBLIC_KEY", "1b2fea9222d0e34c.....");
 
 define("NODA_URL", "http://100.100.100.100:2525");

@@ -15,7 +15,6 @@ if ($prizmApi->hasError()) {
     echo '</pre>';
     echo 'Error';
 } else {
-
     foreach ($transactions as $transaction) {
         /*[
             'id' => $tr_id,
@@ -37,11 +36,10 @@ if ($prizmApi->hasError()) {
             'status' => HISTORY_STATUS_PENDING,
         ];
         $sql = "INSERT INTO pzm_history (tr_id, address, price, comment, tr_timestamp, tr_date, status, created_at) VALUES (?,?,?,?,?,?,?,NOW())";
-        $added = $db->prepare($sql)->execute([$data['tr_id'], $data['address'], $data['price'], $data['comment'], $data['tr_timestamp'], $data['tr_date'], $data['status']]);
-
-        if ($added){
+        $db->prepare($sql)->execute([$data['tr_id'], $data['address'], $data['price'], $data['comment'], $data['tr_timestamp'], $data['tr_date'], $data['status']]);
+        $id = $db->lastInsertId();
+        if ($id) {
             if ($transaction['comment'] && $transaction['price'] > 0) {
-
                 $stmt = $db->prepare('SELECT * FROM pzm_order WHERE hash=?');
                 $stmt->bindParam(1, $transaction['comment'], PDO::PARAM_STR);
                 $stmt->execute();
@@ -51,28 +49,26 @@ if ($prizmApi->hasError()) {
 
                     if ($transaction['price'] == $pzmOrder['price']) {
                         //success
-
                         $sql = "UPDATE pzm_order SET status=? WHERE id=?";
-                        $pdo->prepare($sql)->execute([ORDER_STATUS_SUCCESS, $pzmOrder['id']]);
+                        $db->prepare($sql)->execute([ORDER_STATUS_SUCCESS, $pzmOrder['id']]);
 
                         $sql = "UPDATE pzm_history SET status=? WHERE id=?";
-                        $pdo->prepare($sql)->execute([HISTORY_STATUS_USED, $pzmOrder['id']]);
-
+                        $db->prepare($sql)->execute([HISTORY_STATUS_USED, $id]);
                     } else if ($transaction['price'] > $pzmOrder['price']){
                         log_error('cron - Error: paid too much #' . $pzmOrder['id']);
-
                         $sql = "UPDATE pzm_order SET status=? WHERE id=?";
-                        $pdo->prepare($sql)->execute([ORDER_STATUS_ERROR, $pzmOrder['id']]);
+                        $db->prepare($sql)->execute([ORDER_STATUS_ERROR, $pzmOrder['id']]);
 
                     } else {
                         log_error('cron - Error: not paid enough #' . $pzmOrder['id']);
 
                         $sql = "UPDATE pzm_order SET status=? WHERE id=?";
-                        $pdo->prepare($sql)->execute([ORDER_STATUS_ERROR, $pzmOrder['id']]);
+                        $db->prepare($sql)->execute([ORDER_STATUS_ERROR, $pzmOrder['id']]);
                     }
                 }
             }
         }
+
     }
 
 }
