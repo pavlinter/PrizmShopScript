@@ -1,11 +1,13 @@
 PRIZM SHOP SCRIPT (PRIZM Servlet)
 ================
 
-1) Download library [phpqrcode](http://phpqrcode.sourceforge.net)<br/>
+1) Download library [phpqrcode](http://phpqrcode.sourceforge.net)
+-------------------------
 Put library to libs folder.<br/>
 The path should be /libs/phpqrcode/qrlib.php<br/>
 
 2) Import database
+-------------------------
 ```sql
 CREATE TABLE IF NOT EXISTS `pzm_history` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -40,12 +42,15 @@ CREATE TABLE IF NOT EXISTS `pzm_order` (
 ```
 
 3) Noda settings (prizm.default.properties)
+-------------------------
 ![Screen Shot](https://github.com/pavlinter/PrizmShopScript/blob/master/assets/images/prizm.default.properties.jpg?raw=true)
 
 4) Servlet settings (PrizmAPIServlet.properties)
+-------------------------
 ![Screen Shot](https://github.com/pavlinter/PrizmShopScript/blob/master/assets/images/PrizmAPIServlet.properties.jpg?raw=true)
 
 5) Set Cron Job
+-------------------------
 ```bash
 wget "https://domain.com/cron.php" 2>&1
 ```
