@@ -39,5 +39,11 @@ CREATE TABLE IF NOT EXISTS `pzm_order` (
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 ```
 
-3) Set Cron Job
+3) Noda settings (prizm.default.properties)
+![Screen Shot](https://github.com/pavlinter/PrizmShopScript/blob/master/assets/images/prizm.default.properties.jpg?raw=true)
+
+4) Servlet settings (PrizmAPIServlet.properties)
+![Screen Shot](https://github.com/pavlinter/PrizmShopScript/blob/master/assets/images/PrizmAPIServlet.properties.jpg?raw=true)
+
+5) Set Cron Job
 wget "https://domain.com/cron.php" 2>&1
