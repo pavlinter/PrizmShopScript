@@ -49,6 +49,21 @@ Servlet settings (PrizmAPIServlet.properties)
 ------------------------------------------------
 ![Screen Shot](https://github.com/pavlinter/PrizmShopScript/blob/master/assets/images/PrizmAPIServlet.properties.jpg?raw=true)
 
+
+Run Noda (linux)
+----------------
+```bash
+cd /root/prizm-dist/
+sh run.sh
+```
+
+Run Servlet (linux)
+----------------
+```bash
+cd /root/prizm-api/
+sh run-servlet.sh
+```
+
 Set Cron Job
 ----------------
 ```bash

@@ -1,6 +1,7 @@
 <?php
 include 'config.php';
 $orders = getSuccessOrders();
+
 ?>
 <div class="panel">
     <h2>Success orders</h2>
